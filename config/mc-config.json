@@ -1,0 +1,11 @@
+{
+"version": "9",
+	"hosts": {
+        "backups": {
+            "url": "https://minio.example.com",
+            "accessKey": "example",
+            "secretKey": "example",
+            "api": "S3v4"
+        }
+    }
+}

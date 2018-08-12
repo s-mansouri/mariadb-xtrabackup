@@ -1,0 +1,14 @@
+version: "3.6"
+services:
+  xtrabackup:
+    build: .
+    command: supercronic /mnt/crontab
+    environment:
+      DAYS: '6'
+      HOST: localhost
+      MYSQL_USER: root
+      MYSQL_ROOT_PASSWORD: example
+    volumes:
+      - /var/lib/mysql:/var/lib/mysql # datadir of mysql
+      - $PWD:/mnt/backups # directory where your backups create
+      - ./config/mc-config.json:/root/.mc/config.json # edit minio config file before use or remove this section
