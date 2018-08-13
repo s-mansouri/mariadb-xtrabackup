@@ -11,4 +11,3 @@ services:
     volumes:
       - /var/lib/mysql:/var/lib/mysql # datadir of mysql
       - $PWD:/mnt/backups # directory where your backups create
-      - ./config/mc-config.json:/root/.mc/config.json # edit minio config file before use or remove this section
