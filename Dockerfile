@@ -27,6 +27,13 @@ WORKDIR /mnt
 
 COPY config/crontab .
 COPY scripts/xtrabackup.sh .
+COPY scripts/extract_xtrabackup.sh .
+COPY scripts/prepare_xtrabackup.sh .
+COPY scripts/restore.sh .
 RUN chmod +x xtrabackup.sh
+RUN chmod +x extract_xtrabackup.sh
+RUN chmod +x prepare_xtrabackup.sh
+RUN chmod +x restore.sh
+
 
 CMD ["bash", "-c", "/mnt/xtrabackup.sh"]
