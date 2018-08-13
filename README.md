@@ -83,32 +83,5 @@ the database user's password used to connect to the server
 
 number of days to keep backups
 
-**`RESTORE_DIR`**
-
-Name of the backup directory, for example Mon OR Sun ... 
-
-### Sync backups with minio
-
-for sync backups with minio mount your minio config in `/root/.mc/config.json`
-
-
-### Environment Variables
-
-**`HOST`** 
-
-The host to use when connecting to the database server with TCP/IP
-
-**`MYSQL_USER`**
- 
-the database user for more information about user privileges refer [here](https://www.percona.com/doc/percona-xtrabackup/2.4/using_xtrabackup/privileges.html#permissions-and-privileges-needed)
-
-**`MYSQL_ROOT_PASSWORD`**
-
-the database user's password used to connect to the server 
-
-**`DAYS`**
-
-number of days to keep backups
-
 ## Contributing
 PRs are always welcome! Before undertaking a major change, consider opening an issue for some discussion.
