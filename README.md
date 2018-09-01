@@ -40,6 +40,10 @@ It creates restore directory inside `RESTORE_DIR`. The full-backup will represen
 
 > NOTICE: you must mount MariaDb datadir and a volume for backups
 
+### Kubernetes
+
+#### Incremental Backup
+see the sample files
 ## Features
 
 The `xtrabackup.sh` script has the following functionality:

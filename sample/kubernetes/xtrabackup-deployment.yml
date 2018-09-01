@@ -1,0 +1,50 @@
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  name: xtrabackup
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: xtrabackup
+  template:
+    metadata:
+      labels:
+        app: xtrabackup
+    spec:
+      containers:
+      - name: xtrabackup
+        image: smansoorirad/mariadb-xtrabackup
+        imagePullPolicy: Always
+        env:
+          - name: MYSQL_ROOT_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: xtrabackups-secret
+                key: MYSQL_ROOT_PASSWORD
+          - name: MYSQL_USER
+            value: root
+          - name: HOST
+            value: mariadb-host
+          - name: MINIO_BUCKET
+            value: minio/bucket
+        volumeMounts:
+        - name: datadir
+          mountPath: /var/lib/mysql
+        - name: backupdir
+          mountPath: /mnt/backups
+        - name: minio-config
+          mountPath: "/root/.mc/config.json"
+          subPath: config.json
+      nodeSelector:
+       type: backupdb
+      volumes:
+      - name: datadir
+        hostPath:
+         path: /srv/datadir-mysql
+      - name: backupdir
+        hostPath:
+         path: /mnt/backups
+      - name: minio-config
+        secret:
+          secretName: minio-config
