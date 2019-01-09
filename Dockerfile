@@ -1,6 +1,6 @@
 FROM bitnami/minideb:stretch
 
-RUN install_packages openssl ca-certificates gnupg2 dirmngr curl
+RUN install_packages openssl ca-certificates gnupg2 dirmngr curl wget
 
 # Install supercronic
 ENV SUPERCRONIC_URL=https://github.com/aptible/supercronic/releases/download/v0.1.6/supercronic-linux-amd64 \
@@ -14,9 +14,13 @@ RUN curl -fsSLO "$SUPERCRONIC_URL" \
  && ln -s "/usr/local/bin/${SUPERCRONIC}" /usr/local/bin/supercronic
 
 # Install xtrabackup
-RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 8507EFA5 && \
-    echo "deb http://repo.percona.com/apt stretch main" >> /etc/apt/sources.list && \
-    install_packages percona-xtrabackup qpress
+RUN apt-get update -y \
+    && apt-get install lsb-release iproute -y --no-install-recommends \
+    && wget https://repo.percona.com/apt/percona-release_0.1-4.$(lsb_release -sc)_all.deb \
+    && dpkg -i percona-release_0.1-4.$(lsb_release -sc)_all.deb \
+    && apt-get update -y --no-install-recommends \
+    && apt-get install percona-xtrabackup-24 qpress -y --no-install-recommends \
+    && rm -rf /var/lib/apt/lists/*
 
 # Install minio
 RUN curl -fsSLO https://dl.minio.io/client/mc/release/linux-amd64/mc \
