@@ -3,7 +3,7 @@
 export LC_ALL=C
 
 parent_dir="${PWD}/backups" #directory of backups
-todays_dir="${parent_dir}/$(date +%a)"
+todays_dir="${parent_dir}/$(date +%F)"
 log_file="${todays_dir}/backup-progress.log"
 now="$(date +%m-%d-%Y_%H-%M-%S)"
 
@@ -43,7 +43,7 @@ set_options () {
 rotate_old () {
     # Remove the oldest backup in rotation
     if [ -z "${DAYS}" ]; then
-        day_dir_to_remove="${parent_dir}/$(date --date="${days_of_backups} days ago" +%a)"
+        day_dir_to_remove="${parent_dir}/$(date --date="${days_of_backups} days ago" +%F)"
 
         if [ -d "${day_dir_to_remove}" ]; then
             rm -rf "${day_dir_to_remove}"
